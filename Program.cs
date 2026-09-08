@@ -1,4 +1,17 @@
+using Microsoft.EntityFrameworkCore;
+using mvc_erp.Models;
+using mvc_erp.Services;
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddDbContext<ErpDbContext>(options =>
+    options.UseSqlServer(
+        builder.Configuration.GetConnectionString("DefaultConnection")));
+
+
+// Register LoginService.
+// ASP.NET Core will create one instance per HTTP request.
+builder.Services.AddScoped<LoginService>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -14,6 +27,8 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
@@ -22,7 +37,7 @@ app.MapStaticAssets();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}")
+    pattern: "{controller=Account}/{action=Login}/{id?}")
     .WithStaticAssets();
 
 
