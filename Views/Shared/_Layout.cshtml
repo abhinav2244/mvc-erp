@@ -1,50 +1,574 @@
-﻿<!DOCTYPE html>
+﻿
+@{
+    // Page title can be overridden by individual views.
+    var pageTitle = ViewData["Title"]?.ToString() ?? "ERP Portal";
+}
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - mvc_erp</title>
-    <script type="importmap"></script>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/mvc_erp.styles.css" asp-append-version="true" />
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0" />
+
+    <title>@pageTitle - ERP Portal</title>
+
+    <!-- Font Awesome - same icon family used by Login page -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
+
+    <!-- Main application layout CSS -->
+    <link rel="stylesheet"
+          href="~/css/layout.css"
+          asp-append-version="true" />
+
+    @RenderSection("Styles", required: false)
 </head>
+
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">mvc_erp</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
+
+    <!-- =========================================================
+         PAGE LOADER
+         Used when navigating between ERP pages.
+         ========================================================= -->
+    <div class="page-loader" id="pageLoader">
+        <div class="page-loader-spinner">
+            <i class="fa-solid fa-circle-notch fa-spin"></i>
+        </div>
+        <span>Loading...</span>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2026 - mvc_erp - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+
+    <!-- =========================================================
+         APPLICATION WRAPPER
+         ========================================================= -->
+    <div class="app-wrapper" id="appWrapper">
+
+
+        <!-- =====================================================
+             SIDEBAR
+             ===================================================== -->
+        <aside class="app-sidebar" id="appSidebar">
+
+            <!-- Brand -->
+            <div class="sidebar-brand">
+
+                <div class="sidebar-brand-icon">
+                    <i class="fa-solid fa-building-columns"></i>
+                </div>
+
+                <div class="sidebar-brand-text">
+                    <span class="brand-title">ERP</span>
+                    <span class="brand-subtitle">PORTAL</span>
+                </div>
+
+            </div>
+
+
+            <!-- Sidebar user information -->
+            <div class="sidebar-user">
+
+                <div class="sidebar-user-avatar">
+                    <i class="fa-solid fa-user"></i>
+                </div>
+
+                <div class="sidebar-user-info">
+                    <strong id="sidebarUserName">Administrator</strong>
+                    <span>ERP User</span>
+                </div>
+
+                <span class="online-indicator"></span>
+
+            </div>
+
+
+            <!-- Navigation -->
+            <nav class="sidebar-navigation">
+
+                <div class="navigation-label">
+                    <span>MAIN MENU</span>
+                </div>
+
+
+                <!-- Dashboard -->
+                <a asp-controller="ExaminationDashboard"
+                   asp-action="Index"
+                   class="sidebar-nav-item">
+
+                    <span class="nav-item-icon">
+                        <i class="fa-solid fa-house"></i>
+                    </span>
+
+                    <span class="nav-item-text">
+                        Dashboard
+                    </span>
+
+                </a>
+
+
+                <!-- =================================================
+                     Dynamic menu container
+
+                     Later we will populate this from the same
+                     database menu structure used by the old
+                     MasterPage.
+                     ================================================= -->
+                <div id="dynamicMenu">
+
+                    <!-- Example menu -->
+
+                    <div class="sidebar-menu-group">
+
+                        <button type="button"
+                                class="sidebar-nav-item menu-toggle"
+                                data-menu="academicMenu">
+
+                            <span class="nav-item-icon">
+                                <i class="fa-solid fa-graduation-cap"></i>
+                            </span>
+
+                            <span class="nav-item-text">
+                                Academic
+                            </span>
+
+                            <span class="menu-arrow">
+                                <i class="fa-solid fa-chevron-right"></i>
+                            </span>
+
+                        </button>
+
+
+                        <div class="sidebar-submenu"
+                             id="academicMenu">
+
+                            <a href="#"
+                               class="sidebar-submenu-item">
+
+                                <i class="fa-solid fa-book"></i>
+                                <span>Subjects</span>
+
+                            </a>
+
+                            <a href="#"
+                               class="sidebar-submenu-item">
+
+                                <i class="fa-solid fa-users"></i>
+                                <span>Students</span>
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Examination -->
+                    <div class="sidebar-menu-group">
+
+                        <button type="button"
+                                class="sidebar-nav-item menu-toggle"
+                                data-menu="examMenu">
+
+                            <span class="nav-item-icon">
+                                <i class="fa-solid fa-file-pen"></i>
+                            </span>
+
+                            <span class="nav-item-text">
+                                Examination
+                            </span>
+
+                            <span class="menu-arrow">
+                                <i class="fa-solid fa-chevron-right"></i>
+                            </span>
+
+                        </button>
+
+
+                        <div class="sidebar-submenu"
+                             id="examMenu">
+
+                            <a href="#"
+                               class="sidebar-submenu-item">
+
+                                <i class="fa-solid fa-list-check"></i>
+                                <span>Exam Setup</span>
+
+                            </a>
+
+                            <a href="#"
+                               class="sidebar-submenu-item">
+
+                                <i class="fa-solid fa-calendar-days"></i>
+                                <span>Exam Timetable</span>
+
+                            </a>
+
+                            <a href="#"
+                               class="sidebar-submenu-item">
+
+                                <i class="fa-solid fa-chart-column"></i>
+                                <span>Results</span>
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Administration -->
+                    <div class="sidebar-menu-group">
+
+                        <button type="button"
+                                class="sidebar-nav-item menu-toggle"
+                                data-menu="adminMenu">
+
+                            <span class="nav-item-icon">
+                                <i class="fa-solid fa-user-gear"></i>
+                            </span>
+
+                            <span class="nav-item-text">
+                                Administration
+                            </span>
+
+                            <span class="menu-arrow">
+                                <i class="fa-solid fa-chevron-right"></i>
+                            </span>
+
+                        </button>
+
+
+                        <div class="sidebar-submenu"
+                             id="adminMenu">
+
+                            <a href="#"
+                               class="sidebar-submenu-item">
+
+                                <i class="fa-solid fa-user"></i>
+                                <span>Users</span>
+
+                            </a>
+
+                            <a href="#"
+                               class="sidebar-submenu-item">
+
+                                <i class="fa-solid fa-building"></i>
+                                <span>Departments</span>
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </nav>
+
+
+            <!-- Sidebar bottom -->
+            <div class="sidebar-bottom">
+
+                <div class="sidebar-security">
+
+                    <i class="fa-solid fa-shield-halved"></i>
+
+                    <div>
+                        <strong>Secure ERP</strong>
+                        <small>Protected access</small>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </aside>
+
+
+        <!-- =====================================================
+             MAIN AREA
+             ===================================================== -->
+        <div class="app-main">
+
+
+            <!-- =================================================
+                 TOP NAVBAR
+                 ================================================= -->
+            <header class="app-header">
+
+                <!-- Left side -->
+                <div class="header-left">
+
+                    <!-- Sidebar toggle -->
+                    <button type="button"
+                            class="sidebar-toggle"
+                            id="sidebarToggle"
+                            aria-label="Toggle sidebar">
+
+                        <i class="fa-solid fa-bars"></i>
+
+                    </button>
+
+
+                    <!-- Page heading -->
+                    <div class="page-heading">
+
+                        <span class="page-heading-icon">
+                            <i class="fa-solid fa-layer-group"></i>
+                        </span>
+
+                        <div>
+                            <h1 id="pageHeading">
+                                @pageTitle
+                            </h1>
+
+                            <span class="page-breadcrumb">
+                                ERP Portal
+                            </span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Right side -->
+                <div class="header-right">
+
+
+                    <!-- Academic year -->
+                    <div class="header-info academic-year">
+
+                        <span class="header-info-icon">
+                            <i class="fa-solid fa-calendar-days"></i>
+                        </span>
+
+                        <div>
+                            <small>Academic Year</small>
+                            <strong id="academicYear">
+                                2026-27
+                            </strong>
+                        </div>
+
+                    </div>
+
+
+                    <!-- Current date/time -->
+                    <div class="header-info current-time">
+
+                        <span class="header-info-icon">
+                            <i class="fa-regular fa-clock"></i>
+                        </span>
+
+                        <div>
+                            <small>Current Time</small>
+                            <strong id="currentDateTime">
+                                --
+                            </strong>
+                        </div>
+
+                    </div>
+
+
+                    <!-- Notifications -->
+                    <button type="button"
+                            class="header-icon-button"
+                            title="Notifications">
+
+                        <i class="fa-regular fa-bell"></i>
+
+                        <span class="notification-dot"></span>
+
+                    </button>
+
+
+                    <!-- User profile -->
+                    <div class="user-profile">
+
+                        <button type="button"
+                                class="user-profile-button"
+                                id="userProfileButton">
+
+                            <div class="user-avatar">
+                                <i class="fa-solid fa-user"></i>
+                            </div>
+
+                            <div class="user-profile-info">
+
+                                <strong id="headerUserName">
+                                    Administrator
+                                </strong>
+
+                                <span>ERP User</span>
+
+                            </div>
+
+                            <i class="fa-solid fa-chevron-down profile-arrow"></i>
+
+                        </button>
+
+
+                        <!-- Profile dropdown -->
+                        <div class="profile-dropdown"
+                             id="profileDropdown">
+
+                            <div class="profile-dropdown-header">
+
+                                <div class="profile-large-avatar">
+                                    <i class="fa-solid fa-user"></i>
+                                </div>
+
+                                <div>
+                                    <strong id="dropdownUserName">
+                                        Administrator
+                                    </strong>
+
+                                    <span>ERP User</span>
+                                </div>
+
+                            </div>
+
+
+                            <div class="profile-dropdown-divider"></div>
+
+
+                            <a href="#"
+                               class="profile-menu-item">
+
+                                <i class="fa-regular fa-user"></i>
+
+                                <span>My Profile</span>
+
+                            </a>
+
+
+                            <a href="#"
+                               class="profile-menu-item">
+
+                                <i class="fa-solid fa-gear"></i>
+
+                                <span>Settings</span>
+
+                            </a>
+
+
+                            <a href="#"
+                               class="profile-menu-item">
+
+                                <i class="fa-solid fa-key"></i>
+
+                                <span>Change Password</span>
+
+                            </a>
+
+
+                            <div class="profile-dropdown-divider"></div>
+
+
+                            <a href="#"
+                               class="profile-menu-item logout-item">
+
+                                <i class="fa-solid fa-arrow-right-from-bracket"></i>
+
+                                <span>Logout</span>
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </header>
+
+
+            <!-- =================================================
+                 PAGE CONTENT
+                 ================================================= -->
+            <main class="app-content">
+
+                <div class="content-container">
+
+                    @RenderBody()
+
+                </div>
+
+            </main>
+
+
+            <!-- =================================================
+                 FOOTER
+                 ================================================= -->
+            <footer class="app-footer">
+
+                <div class="footer-left">
+
+                    <a asp-controller="ExaminationDashboard"
+                       asp-action="Index">
+
+                        <i class="fa-solid fa-house"></i>
+                        Home
+
+                    </a>
+
+                    <span class="footer-divider"></span>
+
+                    <button type="button"
+                            id="backButton">
+
+                        <i class="fa-solid fa-arrow-left"></i>
+                        Back
+
+                    </button>
+
+                </div>
+
+
+                <div class="footer-right">
+
+                    <span>
+                        © @DateTime.Now.Year ERP Portal
+                    </span>
+
+                    <span class="footer-divider"></span>
+
+                    <span>
+                        <i class="fa-solid fa-shield-halved"></i>
+                        Secure & Reliable
+                    </span>
+
+                </div>
+
+            </footer>
+
         </div>
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
+
+    </div>
+
+
+    <!-- =========================================================
+         MOBILE SIDEBAR OVERLAY
+         ========================================================= -->
+    <div class="sidebar-overlay"
+         id="sidebarOverlay">
+    </div>
+
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Application layout JS -->
+    <script src="~/js/layout.js"
+            asp-append-version="true"></script>
+
+    @RenderSection("Scripts", required: false)
+
 </body>
 </html>
+

@@ -45,7 +45,7 @@ namespace mvc_erp.Controllers
 
              // Temporary success message for testing
              ViewBag.LoginMessage = "Login Successful!";
-
+            return RedirectToAction("Index", "ExaminationDashboard");
             // Yahan existing decryption project baad mein use hoga.
             // Abhi decryption ko touch nahi kar rahe hain.
 
