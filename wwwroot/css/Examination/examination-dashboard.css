@@ -6,8 +6,8 @@
 .exam-dashboard {
     width: 100%;
     min-height: 100vh;
-    padding: 24px;
-    background: #f5f7fb;
+    padding: 28px;
+    background: #eef3f8;
     color: #1f2937;
     box-sizing: border-box;
 }
@@ -40,14 +40,48 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 24px;
-    min-height: 180px;
-    padding: 30px;
+    gap: 30px;
+    min-height: 175px;
+    padding: 32px 36px;
+    margin-bottom: 28px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 20px;
-    background: linear-gradient(135deg, #1f3c5b 0%, #315f82 100%);
+    background: linear-gradient( 135deg, #244a70 0%, #315f8c 55%, #3c6f99 100% );
     color: #ffffff;
-    box-shadow: 0 10px 30px rgba(31, 60, 91, 0.12);
+    box-shadow: 0 12px 30px rgba(36, 74, 112, 0.15);
 }
+
+
+    /* =========================================================
+   Header Decorative Shapes
+   ========================================================= */
+
+    .exam-welcome::before {
+        content: "";
+        position: absolute;
+        width: 260px;
+        height: 260px;
+        top: -145px;
+        right: 120px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.045);
+    }
+
+    .exam-welcome::after {
+        content: "";
+        position: absolute;
+        width: 180px;
+        height: 180px;
+        right: -65px;
+        bottom: -100px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.06);
+    }
+
+
+/* =========================================================
+   Welcome Content
+   ========================================================= */
 
 .exam-welcome-content {
     position: relative;
@@ -55,33 +89,50 @@
     display: flex;
     align-items: center;
     gap: 20px;
+    min-width: 0;
 }
+
+
+/* =========================================================
+   Profile
+   ========================================================= */
 
 .exam-profile {
     width: 76px;
     height: 76px;
     flex: 0 0 76px;
     overflow: hidden;
-    border: 4px solid rgba(255, 255, 255, 0.35);
+    border: 4px solid rgba(255, 255, 255, 0.3);
     border-radius: 50%;
     background: #ffffff;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.12);
 }
 
     .exam-profile img {
         width: 100%;
         height: 100%;
+        display: block;
         object-fit: cover;
     }
+
+
+/* =========================================================
+   Welcome Text
+   ========================================================= */
 
 .exam-welcome-text {
     min-width: 0;
 }
 
 .exam-welcome-label {
-    margin-bottom: 6px;
-    font-size: 14px;
-    font-weight: 500;
-    opacity: 0.78;
+    display: block;
+    margin-bottom: 7px;
+    font-size: 13px;
+    line-height: 1.2;
+    font-weight: 600;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.72);
 }
 
 .exam-welcome-title {
@@ -89,21 +140,35 @@
     font-size: 30px;
     line-height: 1.2;
     font-weight: 700;
+    letter-spacing: -0.4px;
+    color: #ffffff;
 }
 
 .exam-welcome-subtitle {
-    margin-top: 8px;
+    margin: 9px 0 0;
     font-size: 14px;
-    opacity: 0.78;
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.75);
 }
+
+
+/* =========================================================
+   Header Actions
+   ========================================================= */
 
 .exam-welcome-actions {
     position: relative;
-    z-index: 2;
+    z-index: 3;
     display: flex;
     align-items: center;
     gap: 12px;
+    flex-shrink: 0;
 }
+
+
+/* =========================================================
+   Notification Button
+   ========================================================= */
 
 .exam-notification-btn {
     width: 46px;
@@ -113,24 +178,274 @@
     justify-content: center;
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 12px;
-    background: rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.1);
     color: #ffffff;
-    font-size: 20px;
+    font-size: 19px;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: background 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
 }
 
     .exam-notification-btn:hover {
-        background: rgba(255, 255, 255, 0.2);
-        transform: translateY(-1px);
+        background: rgba(255, 255, 255, 0.18);
+        border-color: rgba(255, 255, 255, 0.3);
+        transform: translateY(-2px);
     }
 
 
 /* =========================================================
-   Responsive
+   Section
    ========================================================= */
 
-@media (max-width: 768px) {
+.exam-overview-section {
+    width: 100%;
+}
+
+
+/* =========================================================
+   Section Heading
+   ========================================================= */
+
+.exam-section-heading {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 16px;
+}
+
+    .exam-section-heading h2 {
+        margin: 0;
+        font-size: 21px;
+        line-height: 1.3;
+        font-weight: 700;
+        color: #244a70;
+    }
+
+    .exam-section-heading p {
+        margin: 4px 0 0;
+        font-size: 13px;
+        color: #718096;
+    }
+
+
+/* =========================================================
+   Exam Statistics Grid
+   ========================================================= */
+
+.exam-stat-grid {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 18px;
+    width: 100%;
+}
+
+
+/* =========================================================
+   Statistics Card
+   ========================================================= */
+
+.exam-stat-card {
+    position: relative;
+    overflow: hidden;
+    min-height: 150px;
+    display: flex;
+    align-items: center;
+    gap: 17px;
+    padding: 23px;
+    border: 1px solid #e2e8f0;
+    border-radius: 15px;
+    background: #ffffff;
+    box-shadow: 0 5px 16px rgba(31, 41, 55, 0.045);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+
+    /* =========================================================
+   Card Top Line
+   ========================================================= */
+
+    .exam-stat-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: #315f8c;
+        opacity: 0.9;
+    }
+
+
+    /* =========================================================
+   Card Decorative Circle
+   ========================================================= */
+
+    .exam-stat-card::after {
+        content: "";
+        position: absolute;
+        width: 90px;
+        height: 90px;
+        right: -42px;
+        bottom: -45px;
+        border-radius: 50%;
+        background: #f5f8fb;
+        pointer-events: none;
+    }
+
+
+    /* =========================================================
+   Card Hover
+   ========================================================= */
+
+    .exam-stat-card:hover {
+        transform: translateY(-4px);
+        border-color: #cbd9e6;
+        box-shadow: 0 14px 28px rgba(49, 95, 140, 0.1);
+    }
+
+
+/* =========================================================
+   Statistics Icon
+   ========================================================= */
+
+.exam-stat-icon {
+    position: relative;
+    z-index: 1;
+    width: 52px;
+    height: 52px;
+    flex: 0 0 52px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 13px;
+    font-size: 21px;
+}
+
+
+/* =========================================================
+   Icon Theme
+   ========================================================= */
+
+.exam-stat-icon-total {
+    background: #edf4fa;
+    color: #315f8c;
+}
+
+.exam-stat-icon-active {
+    background: #e9f3f5;
+    color: #3f7182;
+}
+
+.exam-stat-icon-regular {
+    background: #edf2f8;
+    color: #3d668d;
+}
+
+.exam-stat-icon-backlog {
+    background: #f0f3f7;
+    color: #58738d;
+}
+
+.exam-stat-icon-reexam {
+    background: #eaf1f7;
+    color: #315f8c;
+}
+
+
+/* =========================================================
+   Statistics Content
+   ========================================================= */
+
+.exam-stat-content {
+    position: relative;
+    z-index: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* =========================================================
+   Statistics Label
+   ========================================================= */
+
+.exam-stat-label {
+    margin-bottom: 7px;
+    font-size: 13px;
+    line-height: 1.3;
+    font-weight: 600;
+    color: #718096;
+}
+
+
+/* =========================================================
+   Statistics Value
+   ========================================================= */
+
+.exam-stat-value {
+    display: block;
+    margin: 0;
+    font-size: 29px;
+    line-height: 1;
+    font-weight: 750;
+    letter-spacing: -0.5px;
+    color: #243b53;
+}
+
+
+/* =========================================================
+   Statistics Description
+   ========================================================= */
+
+.exam-stat-description {
+    margin-top: 8px;
+    font-size: 11px;
+    line-height: 1.3;
+    color: #9aa8b5;
+}
+
+
+/* =========================================================
+   Responsive - Large Tablet
+   ========================================================= */
+
+@media (max-width: 1300px) {
+
+    .exam-stat-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+
+/* =========================================================
+   Responsive - Tablet
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+    .exam-dashboard {
+        padding: 20px;
+    }
+
+    .exam-welcome {
+        min-height: 160px;
+        padding: 28px;
+    }
+
+    .exam-welcome-title {
+        font-size: 27px;
+    }
+
+    .exam-stat-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+
+/* =========================================================
+   Responsive - Mobile
+   ========================================================= */
+
+@media (max-width: 650px) {
 
     .exam-dashboard {
         padding: 15px;
@@ -139,22 +454,38 @@
     .exam-welcome {
         flex-direction: column;
         align-items: flex-start;
+        min-height: auto;
         padding: 24px;
+        border-radius: 17px;
     }
 
     .exam-welcome-content {
         width: 100%;
-    }
-
-    .exam-welcome-title {
-        font-size: 24px;
+        align-items: center;
     }
 
     .exam-welcome-actions {
         width: 100%;
         justify-content: flex-end;
     }
+
+    .exam-welcome-title {
+        font-size: 24px;
+    }
+
+    .exam-stat-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .exam-stat-card {
+        min-height: 135px;
+    }
 }
+
+
+/* =========================================================
+   Responsive - Small Mobile
+   ========================================================= */
 
 @media (max-width: 480px) {
 
@@ -163,21 +494,462 @@
     }
 
     .exam-welcome {
-        border-radius: 16px;
         padding: 20px;
+        border-radius: 15px;
     }
 
     .exam-welcome-content {
         align-items: flex-start;
+        gap: 14px;
     }
 
     .exam-profile {
         width: 58px;
         height: 58px;
         flex-basis: 58px;
+        border-width: 3px;
     }
 
     .exam-welcome-title {
         font-size: 21px;
     }
+
+    .exam-welcome-subtitle {
+        font-size: 12px;
+    }
+
+    .exam-section-heading h2 {
+        font-size: 19px;
+    }
+
+    .exam-stat-card {
+        padding: 20px;
+    }
+
+    .exam-stat-icon {
+        width: 48px;
+        height: 48px;
+        flex-basis: 48px;
+        font-size: 19px;
+    }
+
+    .exam-stat-value {
+        font-size: 27px;
+    }
+
+    
+
+  
+}
+
+
+
+/* =========================================================
+       MY SCHEDULES
+       ========================================================= */
+.schedule-section {
+    margin-top: 30px;
+}
+
+.schedule-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 5px 16px rgba(31, 41, 55, .045);
+}
+
+.schedule-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 22px 26px;
+    border-bottom: 1px solid #e8edf2;
+}
+
+.schedule-header-left {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+}
+
+.schedule-header-icon {
+    width: 43px;
+    height: 43px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 11px;
+    background: #edf4fa;
+    color: #315f8c;
+    font-size: 19px;
+}
+
+.schedule-title {
+    margin: 0;
+    color: #243b53;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.schedule-subtitle {
+    margin: 3px 0 0;
+    color: #718096;
+    font-size: 13px;
+}
+
+.schedule-body {
+    display: grid;
+    grid-template-columns: minmax(0, 1.55fr) minmax(330px, .85fr);
+    min-height: 430px;
+}
+
+/* ---------- Calendar ---------- */
+
+.schedule-calendar {
+    padding: 15px;
+    border-right: 1px solid #e8edf2;
+}
+
+.calendar-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 22px;
+}
+
+.calendar-month {
+    margin: 0;
+    color: #243b53;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.calendar-actions {
+    display: flex;
+    gap: 7px;
+}
+
+.calendar-btn {
+    width: 34px;
+    height: 34px;
+    border: 1px solid #dce5ec;
+    border-radius: 8px;
+    background: #ffffff;
+    color: #315f8c;
+    cursor: pointer;
+    transition: all .2s ease;
+}
+
+    .calendar-btn:hover {
+        background: #edf4fa;
+        border-color: #c5d6e5;
+    }
+
+.calendar-weekdays,
+.calendar-days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 7px;
+}
+
+.calendar-weekday {
+    text-align: center;
+    padding: 7px 0;
+    color: #718096;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.calendar-day {
+    position: relative;
+    min-height: 57px;
+    padding: 8px;
+    border: 1px solid #edf1f5;
+    border-radius: 9px;
+    background: #ffffff;
+    color: #3d4f63;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all .2s ease;
+}
+
+    .calendar-day:hover {
+        background: #f5f8fb;
+        border-color: #cbd9e6;
+    }
+
+    .calendar-day.empty {
+        background: #f8fafc;
+        border-color: transparent;
+        cursor: default;
+    }
+
+    .calendar-day.today {
+        background: #edf4fa;
+        border-color: #9fbad0;
+        color: #244a70;
+        font-weight: 700;
+    }
+
+    .calendar-day.selected {
+        background: #315f8c;
+        border-color: #315f8c;
+        color: #ffffff;
+    }
+
+.calendar-event-dot {
+    position: absolute;
+    bottom: 7px;
+    left: 9px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #315f8c;
+}
+
+.calendar-day.selected .calendar-event-dot {
+    background: #ffffff;
+}
+
+/* ---------- Schedule List ---------- */
+
+.schedule-list {
+    display: flex;
+    flex-direction: column;
+    background: #fbfcfd;
+}
+
+.schedule-list-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 22px 22px 15px;
+}
+
+.schedule-list-title {
+    margin: 0;
+    color: #34495e;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.schedule-count {
+    min-width: 25px;
+    padding: 4px 8px;
+    border-radius: 20px;
+    background: #edf4fa;
+    color: #315f8c;
+    font-size: 11px;
+    font-weight: 700;
+    text-align: center;
+}
+
+.schedule-items {
+    padding: 0 15px 18px;
+    overflow-y: auto;
+    max-height: 350px;
+}
+
+.schedule-item {
+    position: relative;
+    display: flex;
+    gap: 13px;
+    padding: 15px 8px;
+    border-bottom: 1px solid #e8edf2;
+}
+
+    .schedule-item:last-child {
+        border-bottom: none;
+    }
+
+.schedule-item-marker {
+    width: 4px;
+    min-width: 4px;
+    align-self: stretch;
+    border-radius: 4px;
+    background: #315f8c;
+}
+
+.schedule-item-content {
+    min-width: 0;
+    flex: 1;
+}
+
+.schedule-item-title {
+    margin: 0 0 5px;
+    color: #2d4359;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.schedule-item-description {
+    margin: 0 0 9px;
+    color: #718096;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.schedule-item-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+}
+
+.schedule-meta {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 8px;
+    border-radius: 6px;
+    background: #f0f4f8;
+    color: #5d7185;
+    font-size: 10px;
+    font-weight: 600;
+}
+
+.schedule-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 280px;
+    padding: 30px;
+    text-align: center;
+    color: #8a99a8;
+}
+
+.schedule-empty-icon {
+    width: 55px;
+    height: 55px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 13px;
+    border-radius: 50%;
+    background: #edf4fa;
+    color: #6b8eac;
+    font-size: 22px;
+}
+
+.schedule-empty-title {
+    margin: 0 0 5px;
+    color: #526579;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.schedule-empty-text {
+    margin: 0;
+    font-size: 12px;
+}
+
+/* ---------- Responsive ---------- */
+
+@@media (max-width: 1000px) {
+    .schedule-body {
+        grid-template-columns: 1fr;
+    }
+
+    .schedule-calendar {
+        border-right: none;
+        border-bottom: 1px solid #e8edf2;
+    }
+}
+
+@@media (max-width: 600px) {
+    .schedule-calendar {
+        padding: 17px;
+    }
+
+    .calendar-day {
+        min-height: 45px;
+        padding: 6px;
+    }
+
+    .calendar-weekdays,
+    .calendar-days {
+        gap: 4px;
+    }
+
+    .schedule-header {
+        padding: 18px;
+    }
+}
+
+/* Add Event button */
+
+.schedule-add-btn {
+    border: none;
+    background: #315f8c;
+    color: #ffffff;
+    border-radius: 8px;
+    padding: 9px 15px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: .2s ease;
+}
+
+    .schedule-add-btn:hover {
+        background: #244a70;
+        color: #ffffff;
+    }
+
+    .schedule-add-btn i {
+        margin-right: 6px;
+    }
+
+
+/* Delete button */
+
+.schedule-item {
+    position: relative;
+}
+
+.schedule-delete-btn {
+    position: absolute;
+    right: 14px;
+    top: 14px;
+    width: 30px;
+    height: 30px;
+    border: none;
+    border-radius: 7px;
+    background: #fff1f2;
+    color: #dc3545;
+    cursor: pointer;
+    transition: .2s ease;
+}
+
+    .schedule-delete-btn:hover {
+        background: #dc3545;
+        color: #ffffff;
+    }
+
+
+/* Calendar event indicators */
+
+.calendar-day {
+    position: relative;
+}
+
+.calendar-day-number {
+    position: relative;
+    z-index: 2;
+}
+
+.calendar-event-indicators {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 3px;
+    margin-top: 5px;
+}
+
+.calendar-event-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    display: inline-block;
 }
