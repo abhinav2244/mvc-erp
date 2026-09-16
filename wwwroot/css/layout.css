@@ -1339,3 +1339,22 @@ a:focus-visible {
 .app-main > .app-header {
     flex-shrink: 0;
 }
+
+.sidebar-submenu {
+    display: none;
+    padding-left: 12px;
+}
+
+    .sidebar-submenu.show {
+        display: block;
+    }
+
+.sidebar-nav-item.active .menu-arrow,
+.sidebar-submenu-item.active .menu-arrow {
+    transform: rotate(90deg);
+}
+
+.menu-arrow {
+    margin-left: auto;
+    transition: transform 0.2s ease;
+}

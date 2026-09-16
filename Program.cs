@@ -16,10 +16,13 @@ builder.Services.AddScoped<MenuService>();
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+<<<<<<< HEAD
 // Register services required for Session.
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession();
 
+=======
+>>>>>>> 43a70c45aed4799c677bb57cb21e4bc957724b55
 var app = builder.Build();
 
 

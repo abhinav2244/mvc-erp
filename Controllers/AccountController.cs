@@ -26,12 +26,12 @@ namespace mvc_erp.Controllers
         // POST: /Account/Login
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async  Task<IActionResult> Login(LoginViewModel model)
+        public async Task<IActionResult> Login(LoginViewModel model)
         {
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return View(model);
-            }   
+            }
 
             // Database se username ke basis par user nikalega
             var users = await _loginService.GetLoginUserAsync(model.Username);
@@ -51,6 +51,14 @@ namespace mvc_erp.Controllers
             // Store username in Session.
             HttpContext.Session.SetString("Username", user.UserLogin);
 
+            // Added new code for dynamic Menu
+            //Store UserlogId in Session
+            HttpContext.Session.SetString("UserLogId", user.UserLogin ?? "");
+            //Store CatId (Category Id) in Session
+            HttpContext.Session.SetString("CatId", user.Specategory ?? "");
+            //Store UserName in Session
+            HttpContext.Session.SetString("UserName", user.UserLogin ?? "");
+
             // Temporary success message for testing
             ViewBag.LoginMessage = "Login Successful!";
             return RedirectToAction("Index", "ExaminationDashboard");
@@ -58,7 +66,7 @@ namespace mvc_erp.Controllers
             // Abhi decryption ko touch nahi kar rahe hain.
 
             // Login authentication will be added in the next steps.
-            
+
         }
     }
 }
