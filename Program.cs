@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using mvc_erp.Models;
 using mvc_erp.Services;
+using mvc_erp.Services.ExaminationDashboard;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,18 +10,14 @@ builder.Services.AddDbContext<ErpDbContext>(options => options.UseSqlServer(buil
 // Register LoginService.
 // ASP.NET Core will create one instance per HTTP request.
 builder.Services.AddScoped<LoginService>();
+builder.Services.AddScoped<ExaminationDashboardService>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddDistributedMemoryCache();
-
-builder.Services.AddSession(options => { options.IdleTimeout = TimeSpan.FromMinutes(60); options.Cookie.HttpOnly = true; options.Cookie.IsEssential = true; });
-
-// Added Service for Dynamic Menu
-builder.Services.AddScoped<MenuService>();
-
 var app = builder.Build();
+
+
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

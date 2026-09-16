@@ -1,4 +1,33 @@
-﻿
+﻿document.addEventListener("DOMContentLoaded", function () {
+
+    document.addEventListener("click", function (event) {
+
+        const toggle = event.target.closest(".menu-toggle");
+
+        if (!toggle) {
+            return;
+        }
+
+        event.preventDefault();
+
+        const menuId = toggle.dataset.menu;
+
+        if (!menuId) {
+            return;
+        }
+
+        const submenu = document.getElementById(menuId);
+
+        if (!submenu) {
+            console.log("Submenu not found:", menuId);
+            return;
+        }
+
+        submenu.classList.toggle("open");
+        toggle.classList.toggle("active");
+    });
+
+});
 document.addEventListener("DOMContentLoaded", function () {
 
     /* =====================================================

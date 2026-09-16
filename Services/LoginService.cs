@@ -58,6 +58,13 @@ namespace mvc_erp.Services
             // Return the list of users returned by the stored procedure.
             return users;
         }
+        public async Task<string?> GetEmployeeIdAsync(string userLogin)
+        {
+            return await _context.EmployeeMasters
+                .Where(x => x.EmpUserId == userLogin)
+                .Select(x => x.EmployeeId.ToString())
+                .FirstOrDefaultAsync();
+        }
     }
 
 
@@ -72,7 +79,7 @@ namespace mvc_erp.Services
     // the stored procedure result.
     //public class LoginUser
     //{
-      
+
     //    public int Id { get; set; }
     //    public string? UserLogin { get; set; }
 
@@ -113,8 +120,8 @@ namespace mvc_erp.Services
     //    public string? ToDate { get; set; }
     //}
 
-   
-public class LoginUser
+
+    public class LoginUser
     {
         public int Id { get; set; }
 

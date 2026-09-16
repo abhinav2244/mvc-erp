@@ -16,8 +16,8 @@ namespace mvc_erp.ViewComponents
         {
             string? userLogId = HttpContext.Session.GetString("UserLogId");
 
-            string? employeeId = HttpContext.Session.GetString("EmployeeID");
-
+            int? employeeId = HttpContext.Session.GetInt32("EmployeeId");
+            
             string? catId = HttpContext.Session.GetString("CatId");
 
             if (string.IsNullOrWhiteSpace(userLogId) || string.IsNullOrWhiteSpace(catId))

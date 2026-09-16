@@ -13,7 +13,7 @@ namespace mvc_erp.Services
             _configuration = configuration;
         }
 
-        public async Task<List<MenuItemViewModel>> GetUserMenuAsync(string userLogId, string employeeId, string catId)
+        public async Task<List<MenuItemViewModel>> GetUserMenuAsync(string userLogId, int? employeeId, string catId)
         {
             var allowedMenuIds = await GetAllowedMenuIdsAsync(userLogId, employeeId, catId);
 
@@ -24,7 +24,7 @@ namespace mvc_erp.Services
 
             return BuildMenuTree(menus);
         }
-        private async Task<List<int>> GetAllowedMenuIdsAsync(string userLogId, string employeeId, string catId)
+        private async Task<List<int>> GetAllowedMenuIdsAsync(string userLogId, int? employeeId, string catId)
         {
             var result = new List<int>();
 
@@ -58,7 +58,7 @@ namespace mvc_erp.Services
             await using var command = new SqlCommand(sql, connection);
 
             command.Parameters.AddWithValue("@CatId", catId);
-            command.Parameters.AddWithValue("@EmployeeID", string.IsNullOrWhiteSpace(employeeId) ? DBNull.Value : employeeId);
+            command.Parameters.AddWithValue("@EmployeeID", employeeId);
 
             await using var reader = await command.ExecuteReaderAsync();
 
