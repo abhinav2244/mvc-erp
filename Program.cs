@@ -5,30 +5,21 @@ using mvc_erp.Services.ExaminationDashboard;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddDbContext<ErpDbContext>(options =>
-    options.UseSqlServer(
-        builder.Configuration.GetConnectionString("DefaultConnection")));
-
+builder.Services.AddDbContext<ErpDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Register LoginService.
 // ASP.NET Core will create one instance per HTTP request.
 builder.Services.AddScoped<LoginService>();
 builder.Services.AddScoped<ExaminationDashboardService>();
+builder.Services.AddScoped<MenuService>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-// Register ASP.NET Core Session services.
-// Session is used to keep values such as EmployeeID
-// available across requests after the user logs in.
+// Register services required for Session.
 builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession();
 
-builder.Services.AddSession(options =>
-{
-    options.IdleTimeout = TimeSpan.FromMinutes(30);
-    options.Cookie.HttpOnly = true;
-    options.Cookie.IsEssential = true;
-});
 var app = builder.Build();
 
 
@@ -50,10 +41,6 @@ app.UseAuthorization();
 
 app.MapStaticAssets();
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Account}/{action=Login}/{id?}")
-    .WithStaticAssets();
-
+app.MapControllerRoute(name: "default", pattern: "{controller=Account}/{action=Login}/{id?}").WithStaticAssets();
 
 app.Run();
