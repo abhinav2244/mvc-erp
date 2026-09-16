@@ -1345,18 +1345,29 @@ a:focus-visible {
     padding-left: 12px;
 }
 
+<<<<<<< HEAD
     .sidebar-submenu.open {
         display: block;
     }
 
 .nested-submenu {
     padding-left: 18px;
+=======
+    .sidebar-submenu.show {
+        display: block;
+    }
+
+.sidebar-nav-item.active .menu-arrow,
+.sidebar-submenu-item.active .menu-arrow {
+    transform: rotate(90deg);
+>>>>>>> 43a70c45aed4799c677bb57cb21e4bc957724b55
 }
 
 .menu-arrow {
     margin-left: auto;
     transition: transform 0.2s ease;
 }
+<<<<<<< HEAD
 
 .menu-toggle.active > .menu-arrow,
 .menu-toggle.active .menu-arrow {
@@ -1374,3 +1385,5 @@ a:focus-visible {
     background: transparent;
     cursor: pointer;
 }
+=======
+>>>>>>> 43a70c45aed4799c677bb57cb21e4bc957724b55
