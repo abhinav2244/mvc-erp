@@ -1,0 +1,60 @@
+﻿@model IEnumerable<mvc_erp.ViewModels.Menu.MenuItemViewModel>
+
+@foreach (var main in Model)
+{
+    var mainId = $"menu_{main.MenuSrNo}";
+
+    <div class="sidebar-menu-group">
+        <button type="button" class="sidebar-nav-item menu-toggle" data-menu="@mainId">
+            <span class="nav-item-icon">
+                <i class="@(string.IsNullOrWhiteSpace(main.CssClass) ? "fa-solid fa-folder" : main.CssClass)"></i>
+            </span>
+            <span class="nav-item-text">
+                @main.Name
+            </span>
+            <span class="menu-arrow">
+                <i class="fa-solid fa-chevron-right"></i>
+            </span>
+        </button>
+        <div class="sidebar-submenu" id="@mainId">
+
+            @foreach (var sub in main.Children)
+            {
+                if (sub.Children.Any())
+                {
+                    var subId =
+                    $"submenu_{sub.MenuSrNo}";
+
+                    <button type="button" class="sidebar-submenu-item menu-toggle" data-menu="@subId">
+                        <i class="@(string.IsNullOrWhiteSpace(sub.CssClass) ? "fa-solid fa-folder" : sub.CssClass)"></i>
+                        <span>@sub.Name</span>
+                        <span class="menu-arrow">
+                            <i class="fa-solid fa-chevron-right"></i>
+                        </span>
+                    </button>
+                    <div class="sidebar-submenu nested-submenu" id="@subId">
+                        @foreach (var child in sub.Children)
+                        {
+                            <a href="@child.Url" class="sidebar-submenu-item">
+                                <i class="fa-solid fa-circle"></i>
+                                <span>
+                                    @child.Name
+                                </span>
+                            </a>
+                        }
+                    </div>
+                }
+                else
+                {
+                    <a href="@sub.Url" class="sidebar-submenu-item">
+
+                        <i class="@(string.IsNullOrWhiteSpace(sub.CssClass) ? "fa-solid fa-circle" : sub.CssClass)"></i>
+                        <span>
+                            @sub.Name
+                        </span>
+                    </a>
+                }
+            }
+        </div>
+    </div>
+}

@@ -78,7 +78,7 @@
                 </div>
 
                 <div class="sidebar-user-info">
-                    <strong id="sidebarUserName">Administrator</strong>
+                    <strong id="sidebarUserName">@Context.Session.GetString("UserName")</strong>
                     <span>ERP User</span>
                 </div>
 
@@ -121,150 +121,7 @@
                 <div id="dynamicMenu">
 
                     <!-- Example menu -->
-
-                    <div class="sidebar-menu-group">
-
-                        <button type="button"
-                                class="sidebar-nav-item menu-toggle"
-                                data-menu="academicMenu">
-
-                            <span class="nav-item-icon">
-                                <i class="fa-solid fa-graduation-cap"></i>
-                            </span>
-
-                            <span class="nav-item-text">
-                                Academic
-                            </span>
-
-                            <span class="menu-arrow">
-                                <i class="fa-solid fa-chevron-right"></i>
-                            </span>
-
-                        </button>
-
-
-                        <div class="sidebar-submenu"
-                             id="academicMenu">
-
-                            <a href="#"
-                               class="sidebar-submenu-item">
-
-                                <i class="fa-solid fa-book"></i>
-                                <span>Subjects</span>
-
-                            </a>
-
-                            <a href="#"
-                               class="sidebar-submenu-item">
-
-                                <i class="fa-solid fa-users"></i>
-                                <span>Students</span>
-
-                            </a>
-
-                        </div>
-
-                    </div>
-
-
-                    <!-- Examination -->
-                    <div class="sidebar-menu-group">
-
-                        <button type="button"
-                                class="sidebar-nav-item menu-toggle"
-                                data-menu="examMenu">
-
-                            <span class="nav-item-icon">
-                                <i class="fa-solid fa-file-pen"></i>
-                            </span>
-
-                            <span class="nav-item-text">
-                                Examination
-                            </span>
-
-                            <span class="menu-arrow">
-                                <i class="fa-solid fa-chevron-right"></i>
-                            </span>
-
-                        </button>
-
-
-                        <div class="sidebar-submenu"
-                             id="examMenu">
-
-                            <a href="#"
-                               class="sidebar-submenu-item">
-
-                                <i class="fa-solid fa-list-check"></i>
-                                <span>Exam Setup</span>
-
-                            </a>
-
-                            <a href="#"
-                               class="sidebar-submenu-item">
-
-                                <i class="fa-solid fa-calendar-days"></i>
-                                <span>Exam Timetable</span>
-
-                            </a>
-
-                            <a href="#"
-                               class="sidebar-submenu-item">
-
-                                <i class="fa-solid fa-chart-column"></i>
-                                <span>Results</span>
-
-                            </a>
-
-                        </div>
-
-                    </div>
-
-
-                    <!-- Administration -->
-                    <div class="sidebar-menu-group">
-
-                        <button type="button"
-                                class="sidebar-nav-item menu-toggle"
-                                data-menu="adminMenu">
-
-                            <span class="nav-item-icon">
-                                <i class="fa-solid fa-user-gear"></i>
-                            </span>
-
-                            <span class="nav-item-text">
-                                Administration
-                            </span>
-
-                            <span class="menu-arrow">
-                                <i class="fa-solid fa-chevron-right"></i>
-                            </span>
-
-                        </button>
-
-
-                        <div class="sidebar-submenu"
-                             id="adminMenu">
-
-                            <a href="#"
-                               class="sidebar-submenu-item">
-
-                                <i class="fa-solid fa-user"></i>
-                                <span>Users</span>
-
-                            </a>
-
-                            <a href="#"
-                               class="sidebar-submenu-item">
-
-                                <i class="fa-solid fa-building"></i>
-                                <span>Departments</span>
-
-                            </a>
-
-                        </div>
-
-                    </div>
+                    @await Component.InvokeAsync("DynamicMenu")
 
                 </div>
 
@@ -351,7 +208,7 @@
                         <div>
                             <small>Academic Year</small>
                             <strong id="academicYear">
-                                2026-27
+                                @Context.Session.GetString("CurrAcadYear")
                             </strong>
                         </div>
 
@@ -401,7 +258,7 @@
                             <div class="user-profile-info">
 
                                 <strong id="headerUserName">
-                                    Administrator
+                                    @Context.Session.GetString("UserName")
                                 </strong>
 
                                 <span>ERP User</span>
@@ -425,7 +282,7 @@
 
                                 <div>
                                     <strong id="dropdownUserName">
-                                        Administrator
+                                        @Context.Session.GetString("UserName")
                                     </strong>
 
                                     <span>ERP User</span>

@@ -4,10 +4,7 @@ using mvc_erp.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddDbContext<ErpDbContext>(options =>
-    options.UseSqlServer(
-        builder.Configuration.GetConnectionString("DefaultConnection")));
-
+builder.Services.AddDbContext<ErpDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Register LoginService.
 // ASP.NET Core will create one instance per HTTP request.
@@ -15,6 +12,13 @@ builder.Services.AddScoped<LoginService>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddDistributedMemoryCache();
+
+builder.Services.AddSession(options => { options.IdleTimeout = TimeSpan.FromMinutes(60); options.Cookie.HttpOnly = true; options.Cookie.IsEssential = true; });
+
+// Added Service for Dynamic Menu
+builder.Services.AddScoped<MenuService>();
 
 var app = builder.Build();
 
@@ -30,15 +34,11 @@ app.UseHttpsRedirection();
 
 app.UseStaticFiles();
 app.UseRouting();
-
+app.UseSession();
 app.UseAuthorization();
 
 app.MapStaticAssets();
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Account}/{action=Login}/{id?}")
-    .WithStaticAssets();
-
+app.MapControllerRoute(name: "default", pattern: "{controller=Account}/{action=Login}/{id?}").WithStaticAssets();
 
 app.Run();
